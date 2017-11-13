@@ -3,6 +3,7 @@
           package="com.zy.testdemo">
 
     <application
+        android:name=".base.DemoAppliction"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
