@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * <pre>
- *     author : Zeyo
+ *    @author : Zeyo
  *     e-mail : zengyongsun@163.com
  *     time   : 2017/11/20
  *     desc   :

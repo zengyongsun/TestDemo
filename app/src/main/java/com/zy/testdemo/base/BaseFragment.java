@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 /**
  * <pre>
- *     author : Zeyo
+ *    @author : Zeyo
  *     e-mail : zengyongsun@163.com
  *     time   : 2017/11/13
  *     desc   :

@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * <pre>
- *     author : Zeyo
+ *    @author : Zeyo
  *     e-mail : zengyongsun@163.com
  *     time   : 2017/11/20
  *     desc   : 保存登录信息的 SharedPreferences

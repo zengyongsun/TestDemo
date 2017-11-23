@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 /**
  * <pre>
- *     author : Zeyo
+ *    @author : Zeyo
  *     e-mail : zengyongsun@163.com
  *     time   : 2017/11/20
  *     desc   : 保存应用中的一些数据
