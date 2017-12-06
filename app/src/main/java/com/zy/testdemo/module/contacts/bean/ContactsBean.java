@@ -1,5 +1,7 @@
 package com.zy.testdemo.module.contacts.bean;
 
+import java.util.List;
+
 /**
  * <pre>
  *    @author : Zeyo
@@ -11,17 +13,16 @@ package com.zy.testdemo.module.contacts.bean;
  */
 public class ContactsBean {
 
-    public ContactsBean(String contactsId, String contactsName, String phoneNumber) {
+    public ContactsBean(String contactsId, String contactsName) {
         this.contactsId = contactsId;
         this.contactsName = contactsName;
-        this.phoneNumber = phoneNumber;
     }
 
     private String contactsId;
     private String contactsName;
-    private String phoneNumber;
+    private List<String> phoneNumber;
 
-    private boolean select;
+    private boolean select = false;
 
     public boolean isSelect() {
         return select;
@@ -47,11 +48,11 @@ public class ContactsBean {
         this.contactsName = contactsName;
     }
 
-    public String getPhoneNumber() {
+    public List<String> getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(List<String> phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

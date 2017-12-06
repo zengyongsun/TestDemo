@@ -26,12 +26,14 @@ public class ImportContactsAdapter extends BaseQuickAdapter<ContactsBean, BaseVi
     protected void convert(BaseViewHolder helper, ContactsBean item) {
 
         helper.setText(R.id.tvName, item.getContactsName());
-        helper.setText(R.id.tvNumber,item.getPhoneNumber());
+        if (item.getPhoneNumber()!=null) {
+            helper.setText(R.id.tvNumber, item.getPhoneNumber().toString());
+        }
         helper.setText(R.id.tvId,item.getContactsId());
 
         AppCompatCheckBox checkBox = helper.getView(R.id.checkbox);
         helper.addOnClickListener(R.id.checkbox);
-
+        checkBox.setChecked(item.isSelect());
 
 
     }
