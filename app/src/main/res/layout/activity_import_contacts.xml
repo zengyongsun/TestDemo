@@ -16,6 +16,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <ImageView
+        android:id="@+id/top_down"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/icon_show_select_down2"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contacts_recycler"
         android:layout_width="match_parent"

@@ -38,4 +38,6 @@ dependencies {
     //网路框架
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
+    implementation 'pub.devrel:easypermissions:1.1.0'
 }

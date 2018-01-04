@@ -1,14 +1,24 @@
 package com.zy.testdemo.module.contacts;
 
+import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.zy.testdemo.R;
 import com.zy.testdemo.base.BaseActivity;
 import com.zy.testdemo.module.contacts.adapter.ImportContactsAdapter;
@@ -16,6 +26,10 @@ import com.zy.testdemo.module.contacts.bean.ContactsBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * <pre>
@@ -29,16 +43,43 @@ import java.util.List;
  *     version: 1.0
  * </pre>
  */
-public class ImportContactsActivity extends BaseActivity {
+public class ImportContactsActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
     private RecyclerView recyclerView;
     private ImportContactsAdapter contactsAdapter;
+    private ImageView imageView;
+
+    public void rotateAnim() {
+        Animation anim =new RotateAnimation(0f, 180f,Animation.RELATIVE_TO_SELF,
+             0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+        // 设置保持动画最后的状态
+        anim.setFillAfter(true);
+        // 设置动画时间
+        anim.setDuration(300);
+        // 设置插入器
+        anim.setInterpolator(new AccelerateInterpolator());
+        imageView.startAnimation(anim);
+    }
+
+    private void rotaObj(){
+        ObjectAnimator.ofFloat(imageView,"rotationX",0,180).start();
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_contacts);
 
+        imageView = findViewById(R.id.top_down);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                rotateAnim();
+                rotaObj();
+            }
+        });
         recyclerView = findViewById(R.id.contacts_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactsAdapter = new ImportContactsAdapter();
@@ -137,4 +178,45 @@ public class ImportContactsActivity extends BaseActivity {
         return phoneList;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //将结果转发给EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    private static final int RD_CONTACTS = 100;
+
+    @AfterPermissionGranted(RD_CONTACTS)
+    private void metodRequestContactsPermission() {
+        String perm = Manifest.permission.READ_CONTACTS;
+        if (EasyPermissions.hasPermissions(this, perm)) {
+            Logger.d("有权限");
+        } else {
+            EasyPermissions.requestPermissions(this, "需要联系人读取权限",
+                RD_CONTACTS, perm);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            Toast.makeText(this, "从系统设置页面回来", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
